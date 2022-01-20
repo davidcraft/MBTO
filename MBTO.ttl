@@ -16,11 +16,6 @@ MBTO:Sample
   a owl:Class ;
   rdfs:label "Sample" ;
   rdfs:subClassOf obo:OBI_0100051 ;
-  rdfs:subClassOf [
-      a owl:Restriction ;
-      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-      owl:onProperty dct:created ;
-    ] ;
   skos:definition "Data about a physical material collected for the purpose of research." ;
   skos:prefLabel "Sample" ;
 .
@@ -28,21 +23,6 @@ MBTO:BioSample
   a owl:Class ;
   rdfs:label "BioSample" ;
   rdfs:subClassOf MBTO:Sample ;
-    rdfs:subClassOf [
-      a owl:Restriction ;
-      owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-      owl:onProperty MBTO:donatedBy ;
-    ] ;
-  rdfs:subClassOf [
-      a owl:Restriction ;
-      owl:minCardinality "0"^^xsd:nonNegativeInteger ;
-      owl:onProperty prov:wasDerivedFrom ;
-    ] ;
-  rdfs:subClassOf [
-      a owl:Restriction ;
-      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-      owl:onProperty MBTO:hasAnatomicalSite ;
-    ] ;
   skos:definition "Data about a physical sample." ;
 .
 MBTO:donatedBy
