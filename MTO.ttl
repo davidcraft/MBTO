@@ -1,0 +1,118 @@
+#MTO is the Manifold Broad Test Ontology, used to
+#understand CENtree api, ontology fields, etc.
+
+PREFIX : <https://fakeurl.bio/MTO>
+PREFIX MTO: <https://fakeurl.bio/MTO>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX obo: <http://purl.obolibrary.org/obo/> 
+PREFIX dct: <http://purl.org/dc/terms/> 
+
+###  http://www.geneontology.org/formats/oboInOwl#hasExactSynonym
+<http://www.geneontology.org/formats/oboInOwl#hasExactSynonym> rdf:type owl:AnnotationProperty .
+
+####
+#### Classes
+####
+
+MTO:Sample
+  a owl:Class ;
+  rdfs:label "Sample" ;
+  <http://www.geneontology.org/formats/oboInOwl#hasExactSynonym> "piece", "part";
+  <http://purl.obolibrary.org/obo/IAO_0000115> "A biological sample" ;
+  skos:definition "Data about a physical material collected for the purpose of research." ;
+  skos:prefLabel "Sample" ;
+.
+MTO:BioSample
+  a owl:Class ;
+  rdfs:label "BioSample" ;
+  <http://purl.obolibrary.org/obo/IAO_0000115> "This the IAO 115 definition of BioSample" ;
+  rdfs:subClassOf MTO:Sample ;
+  <http://www.geneontology.org/formats/oboInOwl#hasExactSynonym> "piece of flesh", "skin", "swab", "cheek swab", "tonguescrape" ;
+  skos:definition "Data about a physical sample." ;
+.
+MTO:Age
+  a owl:Class ;
+  <http://purl.obolibrary.org/obo/IAO_0000115> "The age of the entity, in years" ;
+  <http://www.geneontology.org/formats/oboInOwl#hasExactSynonym> "oldness", "youngness", "years", "months" ;
+  rdfs:label "Age" ;
+.
+MTO:Donor
+  a owl:Class ;
+  rdfs:label "Donor" ;
+  #rdfs:subClassOf obo:OBI_0100026 ;
+  <http://www.geneontology.org/formats/oboInOwl#hasExactSynonym> "saint", "person", "subject", "patient" ;
+  skos:definition "An organism from which a test result is available" ;
+  skos:prefLabel "Donor" ;
+  <http://purl.obolibrary.org/obo/IAO_0000115> "The IAO definition Donor PianoMan" ;
+.
+MTO:SingleCell
+  a owl:Class ;
+  rdfs:label "SingleCell" ;
+  <http://www.geneontology.org/formats/oboInOwl#hasExactSynonym> "single cell", "sc", "one cell" ;
+  rdfs:subClassOf MTO:BioSample ;
+  skos:definition "Data about a physical sample consisting of a single cell." ;
+.
+MTO:Project
+  a owl:Class ;
+  rdfs:label "Project" ;
+  <http://www.geneontology.org/formats/oboInOwl#hasExactSynonym> "effort", "paper-writing prelude" ;
+  rdfs:subClassOf prov:Activity ;
+  skos:definition "A collective effort with an objective related to biomedical research." ;
+  skos:prefLabel "Project" ;
+.
+
+####
+#### ObjectProperties
+####
+
+MTO:donatedBy
+  a owl:ObjectProperty ;
+  rdfs:domain MTO:BioSample ;
+  rdfs:label "donatedBy" ;
+  rdfs:range MTO:Donor ;
+  owl:inverseOf MTO:donated ;
+  <http://www.geneontology.org/formats/oboInOwl#hasExactSynonym> "given" ;
+  skos:definition "The donatedBy property references the Donor organism from which the BioSample was acquired." ;
+  skos:prefLabel "donatedBy" ;
+.
+MTO:hasAge
+  a owl:ObjectProperty ;
+  rdfs:domain MTO:BioSample ;
+  rdfs:domain MTO:Donor ;
+  <http://www.geneontology.org/formats/oboInOwl#hasExactSynonym> "age property", "years" ;
+  rdfs:label "hasAge" ;
+  rdfs:range MTO:Age ;
+  skos:definition "A reference to the Age of the Donor at the point in time that data was collected or that the BioSample was obtained." ;
+  skos:prefLabel "hasAge" ;
+.
+MTO:donated
+  a owl:ObjectProperty ;
+  rdfs:domain MTO:Donor ;
+  rdfs:label "some awesome label" ;
+  rdfs:range MTO:BioSample ;
+  owl:inverseOf MTO:donatedBy ;
+  <http://www.geneontology.org/formats/oboInOwl#hasExactSynonym> "gave", "provided" ;
+  skos:definition "The donated property references the BioSample that was contributed by the Donor" ;
+  <http://purl.obolibrary.org/obo/IAO_0000115> "The IAO definition of donated" ;
+  skos:prefLabel "some label does it get used" ;
+.
+
+####
+#### DatatypeProperties
+####
+
+MTO:hasAnatomicalSite
+  a owl:DatatypeProperty ;
+  rdfs:comment "May want to consider restricting this to UBERON terms but currently any URI is allowed." ;
+  rdfs:domain MTO:BioSample ;
+  rdfs:label "hasAnatomicalSite" ;
+  rdfs:range xsd:anyURI ;
+  <http://www.geneontology.org/formats/oboInOwl#hasExactSynonym> "anatomical site" ;
+  skos:definition "A reference to the site within the organism from which the BioSample was taken." ;
+  skos:prefLabel "hasAnatomicalSite" ;
+.
