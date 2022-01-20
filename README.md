@@ -1,1 +1,1 @@
-# MBTO - manifold broad test ontology
+# MTO - manifold test ontology
